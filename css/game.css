@@ -1,0 +1,399 @@
+/* ==========================================================================
+   FINGO RUNNER - ESTILOS DEL JUEGO Y HUD (HEADS-UP DISPLAY)
+   ========================================================================== */
+
+#game-viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #050914;
+}
+
+#game-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   HUD (INTERFAZ SUPERIOR DENTRO DE LA PARTIDA)
+   ========================================================================== */
+.game-hud {
+  position: absolute;
+  top: 76px; /* Justo debajo del navbar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none; /* No bloquear clicks del canvas */
+  z-index: 50;
+}
+
+.hud-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13, 27, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  pointer-events: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.hud-left-group,
+.hud-right-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Indicador de Nivel */
+.hud-level-badge {
+  background: var(--gradient-brand);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  box-shadow: var(--glow-mint);
+}
+
+/* Vidas (Corazones) */
+.hud-lives-box {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-lives-box .heart {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.hud-lives-box .heart.empty {
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+
+/* Puntuación y Monedas */
+.hud-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.hud-stat-pill .icon {
+  font-size: 16px;
+}
+
+.hud-stat-pill.coins {
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #FBBF24;
+}
+
+.hud-stat-pill.score {
+  border-color: rgba(96, 165, 250, 0.4);
+  color: #93C5FD;
+}
+
+/* Botón de Pausa en HUD */
+.btn-hud-pause {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-subtle);
+  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.btn-hud-pause:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Barra de Progreso hacia el Hito Académico */
+.hud-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(13, 27, 42, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 6px 16px;
+  pointer-events: auto;
+}
+
+.hud-progress-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.hud-progress-track {
+  flex: 1;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hud-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gradient-brand);
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(72, 192, 155, 0.8);
+  transition: width 0.3s ease-out;
+}
+
+.hud-progress-text {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--fingo-mint);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* Insignias de Powerups Activos */
+.hud-powerups-row {
+  display: flex;
+  gap: 8px;
+}
+
+.powerup-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: fadeIn 0.3s ease;
+}
+
+.powerup-badge.shield {
+  background: rgba(59, 130, 246, 0.25);
+  border: 1px solid #60A5FA;
+  color: #93C5FD;
+}
+
+.powerup-badge.mult {
+  background: rgba(16, 185, 129, 0.25);
+  border: 1px solid #34D399;
+  color: #6EE7B7;
+}
+
+/* ==========================================================================
+   BANNER DE INTRODUCCIÓN DE NIVEL
+   ========================================================================== */
+#level-intro-banner {
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  pointer-events: none;
+}
+
+.banner-box {
+  background: rgba(13, 27, 42, 0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 28px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  min-width: 340px;
+}
+
+.banner-badge {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--fingo-mint);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.banner-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.banner-sub {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   ALERTAS EDUCATIVAS FLOTANTES (COLISIÓN CON RIESGO FINANCIERO)
+   ========================================================================== */
+#edu-alert-modal {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 600px;
+  z-index: 70;
+  pointer-events: none;
+}
+
+.edu-alert-card {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 16px 20px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+}
+
+.edu-alert-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.edu-icon {
+  font-size: 26px;
+}
+
+.edu-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #EF4444;
+  display: block;
+}
+
+.edu-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.edu-risk-tag {
+  margin-left: auto;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.edu-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.edu-tip {
+  font-size: 12px;
+  color: #FDE68A;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   TOASTS INFORMATIVOS
+   ========================================================================== */
+#toast-container {
+  position: absolute;
+  top: 140px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 65;
+  pointer-events: none;
+}
+
+.toast-item {
+  background: rgba(13, 27, 42, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.4s ease;
+}
+
+.toast-item.toast-success { border-left: 4px solid var(--fingo-mint); }
+.toast-item.toast-info { border-left: 4px solid var(--fingo-blue); }
+.toast-item.toast-special { border-left: 4px solid #8B5CF6; }
+.toast-item.fade-out { opacity: 0; }
+
+/* ==========================================================================
+   CONTROLES TÁCTILES MÓVILES EN PANTALLA
+   ========================================================================== */
+.touch-controls-container {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.touch-cluster {
+  display: flex;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.btn-touch {
+  width: 58px;
+  height: 58px;
+  background: rgba(13, 27, 42, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(72, 192, 155, 0.4);
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.btn-touch:active {
+  transform: scale(0.92);
+  background: rgba(43, 98, 198, 0.8);
+  border-color: #60A5FA;
+}

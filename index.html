@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FinGo — Subway Surfers FinTech & Sustentación Ejecutiva | Univ. de La Salle</title>
+  
+  <meta name="description" content="Videojuego interactivo 3D tipo Subway Surfers y presentación ejecutiva de los 6 entregables del proyecto FinGo en la Especialización en FinTech de la Universidad de La Salle.">
+  <meta name="author" content="Esteban David Quiros Marin, Deyanira Castaño Cholo, Juan Diego Valencia, Aura Mendoza">
+  <meta name="theme-color" content="#0D1B2A">
+
+  <!-- Tipografías Oficiales FinGo: Plus Jakarta Sans e Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos de la Aplicación -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/modals.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       BARRA DE NAVEGACIÓN PRINCIPAL
+       ======================================================================== -->
+  <header class="main-navbar">
+    <div class="brand-wrapper">
+      <div class="brand-icon-animated">🚀</div>
+      <div class="brand-title-group">
+        <span class="brand-name"><span class="brand-blue">Fin</span><span class="brand-mint">GO</span></span>
+        <span class="brand-tag">TU ALIADO FINANCIERO · LA SALLE</span>
+      </div>
+    </div>
+
+    <div class="nav-actions-group">
+      <button id="btn-toggle-sound" class="nav-btn" title="Activar/Desactivar Sonido">
+        🔊 <span class="nav-btn-label">Audio</span>
+      </button>
+      <button id="btn-select-level" class="nav-btn" title="Seleccionar Nivel (1 a 6)">
+        🎯 <span class="nav-btn-label">Niveles</span>
+      </button>
+      <button id="btn-help" class="nav-btn" title="Instrucciones y Controles">
+        ❓ <span class="nav-btn-label">Controles</span>
+      </button>
+      <button id="btn-nav-pitch" class="nav-btn primary" title="Abrir Modo Sustentación Ejecutiva">
+        📊 <span class="nav-btn-label">Sustentación & ERIC</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       VIEWPORT Y CANVAS DEL JUEGO TRIDIMENSIONAL
+       ======================================================================== -->
+  <main id="game-viewport">
+    <canvas id="game-canvas"></canvas>
+
+    <!-- HUD (Heads-Up Display) de la Partida -->
+    <div class="game-hud">
+      <div class="hud-top-bar">
+        <div class="hud-left-group">
+          <span id="hud-level" class="hud-level-badge">NIVEL 1</span>
+          <div id="hud-lives" class="hud-lives-box">
+            <span class="heart active">❤️</span>
+            <span class="heart active">❤️</span>
+            <span class="heart active">❤️</span>
+            <span class="heart active">❤️</span>
+          </div>
+        </div>
+
+        <div id="hud-powerups" class="hud-powerups-row"></div>
+
+        <div class="hud-right-group">
+          <div class="hud-stat-pill coins">
+            <span class="icon">🪙</span>
+            <span id="hud-coins">0</span>
+          </div>
+          <div class="hud-stat-pill score">
+            <span class="icon">🏆</span>
+            <span id="hud-score">0</span>
+          </div>
+          <button id="btn-hud-pause" class="btn-hud-pause" title="Pausar partida">⏸</button>
+        </div>
+      </div>
+
+      <!-- Barra de Progreso hacia el Hito Académico -->
+      <div class="hud-progress-container">
+        <span class="hud-progress-label">Hito Académico:</span>
+        <div class="hud-progress-track">
+          <div id="hud-progress-fill" class="hud-progress-fill"></div>
+        </div>
+        <span id="hud-progress-text" class="hud-progress-text">0%</span>
+      </div>
+    </div>
+
+    <!-- Banner de Presentación al Iniciar Nivel -->
+    <div id="level-intro-banner" class="hidden"></div>
+
+    <!-- Alertas Educativas Flotantes al Impactar Amenazas Financieras -->
+    <div id="edu-alert-modal" class="hidden"></div>
+
+    <!-- Toasts no intrusivos -->
+    <div id="toast-container"></div>
+
+    <!-- Controles Táctiles para Dispositivos Móviles -->
+    <div class="touch-controls-container">
+      <div class="touch-cluster">
+        <button id="btn-touch-left" class="btn-touch" aria-label="Mover a la izquierda">←</button>
+        <button id="btn-touch-right" class="btn-touch" aria-label="Mover a la derecha">→</button>
+      </div>
+      <div class="touch-cluster">
+        <button id="btn-touch-jump" class="btn-touch" aria-label="Saltar">▲</button>
+        <button id="btn-touch-slide" class="btn-touch" aria-label="Deslizarse">▼</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       MODAL DE HITOS ACADÉMICOS (ENTREGABLES 1 AL 6)
+       ======================================================================== -->
+  <div id="academic-modal-container" class="hidden"></div>
+
+  <!-- ========================================================================
+       MODAL DE SUSTENTACIÓN EJECUTIVA Y MATRIZ ERIC (GAMMA.APP STYLE)
+       ======================================================================== -->
+  <div id="pitch-modal-container" class="hidden"></div>
+
+  <!-- ========================================================================
+       MENÚ PRINCIPAL
+       ======================================================================== -->
+  <div id="main-menu" class="main-menu-overlay">
+    <div class="menu-hero-card animate-scale-up">
+      <div class="menu-badge">ESPECIALIZACIÓN EN FINTECH · UNIV. DE LA SALLE</div>
+      
+      <h1 class="menu-brand-logo">
+        <span class="brand-blue">Fin</span><span class="brand-mint">GO</span> Runner
+      </h1>
+
+      <p class="menu-subtitle">
+        El primer runner interactivo que transforma los riesgos del sobreendeudamiento en Colombia en una experiencia educativa ágil y sustenta los 6 entregables de la asignatura.
+      </p>
+
+      <div class="menu-buttons-list">
+        <button id="btn-play-game" class="btn-primary-fingo">
+          <span>🎮 Iniciar Carrera Financiera (Nivel 1)</span>
+        </button>
+
+        <button id="btn-open-pitch" class="btn-secondary-fingo" style="border-color: var(--fingo-mint); color: #5EEAD4;">
+          <span>📊 Sustentación Ejecutiva & Matriz ERIC</span>
+        </button>
+      </div>
+
+      <!-- Ficha rápida del equipo -->
+      <div class="academic-team-footer" style="width: 100%; margin-top: 10px;">
+        <span class="team-label">Equipo de Trabajo:</span>
+        <div class="team-chips" style="justify-content: center;">
+          <span class="team-chip">👤 Esteban David Quiros Marin</span>
+          <span class="team-chip">👤 Deyanira Castaño Cholo</span>
+          <span class="team-chip">👤 Juan Diego Valencia</span>
+          <span class="team-chip">👤 Aura Mendoza</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL DE SELECCIÓN DE NIVELES (ACCESO RÁPIDO PARA PRESENTACIONES)
+       ======================================================================== -->
+  <div id="level-select-modal" class="modal-overlay hidden">
+    <div class="modal-card animate-scale-up" style="max-width: 780px;">
+      <h2 class="modal-title">Seleccionar Nivel Académico</h2>
+      <p class="modal-subtitle">Accede directamente al nivel y entregable que deseas jugar o sustentar:</p>
+
+      <div class="level-select-grid">
+        <div class="level-card-btn" data-level="1">
+          <div class="level-card-header">
+            <strong>Nivel 1: Selva de Deudas Dispersas</strong>
+            <span class="level-card-icon">📊</span>
+          </div>
+          <p>Entregable 1: Diagnóstico del Entorno, Propuesta de Valor y 5 Fuerzas de Porter.</p>
+        </div>
+
+        <div class="level-card-btn" data-level="2">
+          <div class="level-card-header">
+            <strong>Nivel 2: Autopista de la Regulación</strong>
+            <span class="level-card-icon">⚖️</span>
+          </div>
+          <p>Entregable 2: Sprint 2 Backlog (30 HUs / 137 pts), Identidad de Marca y 7 Módulos.</p>
+        </div>
+
+        <div class="level-card-btn" data-level="3">
+          <div class="level-card-header">
+            <strong>Nivel 3: El Fuego Cruzado Lean</strong>
+            <span class="level-card-icon">🔬</span>
+          </div>
+          <p>Entregable 3: Validación Lean Startup, las 4 hipótesis y el pivote de confianza.</p>
+        </div>
+
+        <div class="level-card-btn" data-level="4">
+          <div class="level-card-header">
+            <strong>Nivel 4: Circuito Scrumban & OKRs</strong>
+            <span class="level-card-icon">🎯</span>
+          </div>
+          <p>Entregable 4: Sistema de OKRs, KPIs accionables vs vanidad y Matriz 2x2.</p>
+        </div>
+
+        <div class="level-card-btn" data-level="5">
+          <div class="level-card-header">
+            <strong>Nivel 5: Tormenta del Lanzamiento MVP</strong>
+            <span class="level-card-icon">⚡</span>
+          </div>
+          <p>Entregable 5: Resolución de Conflictos, Soft Launch y Límites de WIP en Notion.</p>
+        </div>
+
+        <div class="level-card-btn" data-level="6">
+          <div class="level-card-header">
+            <strong>Nivel 6: El Océano Azul de FinGo</strong>
+            <span class="level-card-icon">🏆</span>
+          </div>
+          <p>Entregable 6: Matriz ERIC completa y Sustentación Final del Modelo de Negocio.</p>
+        </div>
+      </div>
+
+      <button id="btn-close-level-select" class="btn-outline-fingo" style="width: 100%;">
+        Cerrar Selector
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL CÓMO JUGAR / CONTROLES
+       ======================================================================== -->
+  <div id="help-modal" class="modal-overlay hidden">
+    <div class="modal-card animate-scale-up">
+      <div class="modal-icon-header">🎮</div>
+      <h2 class="modal-title">Cómo Jugar a FinGo Runner</h2>
+      <p class="modal-subtitle">Supera las amenazas financieras y alcanza la libertad patrimonial:</p>
+
+      <div style="text-align: left; display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+        <div class="stat-box" style="align-items: flex-start; text-align: left;">
+          <strong style="color: var(--fingo-mint);">↔️ Cambiar de Carril:</strong>
+          <small>Teclas <strong>A / D</strong>, <strong>Flecha Izquierda / Derecha</strong> o deslizar el dedo a los lados en móvil.</small>
+        </div>
+        <div class="stat-box" style="align-items: flex-start; text-align: left;">
+          <strong style="color: #60A5FA;">▲ Saltar Obstáculos Bajos:</strong>
+          <small>Tecla <strong>W</strong>, <strong>Flecha Arriba</strong>, <strong>Espacio</strong> o deslizar hacia arriba en móvil.</small>
+        </div>
+        <div class="stat-box" style="align-items: flex-start; text-align: left;">
+          <strong style="color: #FBBF24;">▼ Deslizarse bajo Láseres:</strong>
+          <small>Tecla <strong>S</strong>, <strong>Flecha Abajo</strong> o deslizar hacia abajo en móvil para esquivar intereses ocultos.</small>
+        </div>
+        <div class="stat-box" style="align-items: flex-start; text-align: left;">
+          <strong style="color: #EC4899;">🛡️ Coleccionables Positivos:</strong>
+          <small>Recoge monedas de ahorro, escudos de ciberseguridad SFC y gemas de salud financiera para sumar puntos.</small>
+        </div>
+      </div>
+
+      <button id="btn-close-help" class="btn-primary-fingo" style="width: 100%;">
+        ¡Entendido, a Correr!
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL DE PAUSA
+       ======================================================================== -->
+  <div id="pause-modal" class="modal-overlay hidden">
+    <div class="modal-card animate-scale-up">
+      <div class="modal-icon-header">⏸</div>
+      <h2 class="modal-title">Juego en Pausa</h2>
+      <p class="modal-subtitle">Tómate un respiro para revisar tu estrategia financiera.</p>
+
+      <div class="modal-buttons-column">
+        <button id="btn-resume-game" class="btn-primary-fingo">
+          ▶ Reanudar Carrera
+        </button>
+        <button id="btn-pause-main-menu" class="btn-secondary-fingo">
+          🏠 Menú Principal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODALES DE GAME OVER Y VICTORIA
+       ======================================================================== -->
+  <div id="game-over-modal" class="modal-overlay hidden"></div>
+  <div id="victory-modal" class="modal-overlay hidden"></div>
+
+  <!-- Scripts del Proyecto en Orden de Dependencia -->
+  <script src="js/data/academicData.js"></script>
+  <script src="js/data/obstaclesData.js"></script>
+  <script src="js/data/collectiblesData.js"></script>
+  <script src="js/audio/SoundSynthesizer.js"></script>
+  <script src="js/engine/Camera3D.js"></script>
+  <script src="js/engine/TrackRenderer.js"></script>
+  <script src="js/engine/ParticleSystem.js"></script>
+  <script src="js/engine/Player.js"></script>
+  <script src="js/engine/ObstacleManager.js"></script>
+  <script src="js/engine/CollectibleManager.js"></script>
+  <script src="js/ui/AcademicModal.js"></script>
+  <script src="js/ui/PitchViewer.js"></script>
+  <script src="js/ui/UIManager.js"></script>
+  <script src="js/engine/GameEngine.js"></script>
+  <script src="js/input/InputHandler.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

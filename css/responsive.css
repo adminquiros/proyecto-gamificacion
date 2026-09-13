@@ -1,0 +1,161 @@
+/* ==========================================================================
+   FINGO RUNNER - DISEÑO RESPONSIVE Y ADAPTABILIDAD MÓVIL / TABLET / DESKTOP
+   ========================================================================== */
+
+/* Pantallas medianas y Tablets (<= 992px) */
+@media (max-width: 992px) {
+  .academic-modal-card {
+    padding: 24px;
+    max-height: 94vh;
+  }
+
+  .cover-team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .conflict-roles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .backlog-three-frentes {
+    grid-template-columns: 1fr;
+  }
+
+  .porter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .porter-card.highlight-porter {
+    grid-column: span 1;
+  }
+
+  .pitch-navbar {
+    height: auto;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+  }
+
+  .pitch-slide-viewport {
+    padding: 24px;
+  }
+
+  .slide-split-grid,
+  .lean-grid,
+  .eric-full-matrix {
+    grid-template-columns: 1fr;
+  }
+
+  .krs-row {
+    grid-template-columns: 1fr;
+  }
+
+  .soft-launch-diagram {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sl-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+/* Teléfonos y Dispositivos Móviles (<= 768px) */
+@media (max-width: 768px) {
+  .main-navbar {
+    height: 56px;
+    padding: 0 14px;
+  }
+
+  .brand-name {
+    font-size: 17px;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
+  .nav-btn-label {
+    display: none;
+  }
+
+  .nav-btn {
+    padding: 6px 10px;
+  }
+
+  .game-hud {
+    top: 64px;
+    width: calc(100% - 20px);
+  }
+
+  .hud-top-bar {
+    padding: 8px 12px;
+  }
+
+  .hud-stat-pill {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .cover-title {
+    font-size: 42px;
+  }
+
+  .cover-subtitle {
+    font-size: 16px;
+  }
+
+  .cover-team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-hero-card {
+    padding: 28px 20px;
+  }
+
+  .menu-brand-logo {
+    font-size: 38px;
+  }
+
+  .level-select-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eric-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .academic-actions {
+    flex-direction: column;
+  }
+
+  .academic-title {
+    font-size: 20px;
+  }
+
+  .academic-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .touch-controls-container {
+    padding: 0 14px;
+    bottom: 12px;
+  }
+
+  .btn-touch {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+}
+
+/* Pantallas muy pequeñas (<= 420px) */
+@media (max-width: 420px) {
+  .hud-progress-container {
+    display: none; /* Ahorrar espacio en pantallas diminutas */
+  }
+
+  .hud-level-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+}
