@@ -48,26 +48,32 @@ const ACADEMIC_DATA = {
       ],
       sections: [
         {
-          title: "1. Problemática Identificada en el Usuario",
-          content: "Las personas administran sus obligaciones de forma dispersa entre tarjetas de crédito, créditos educativos (ej. Icetex), créditos de libre inversión y microcréditos fintech. Consecuencia: falta de claridad sobre la Tasa Efectiva Anual (TEA), estrés recurrente, pagos de intereses de mora y sobreendeudamiento crónico."
+          title: "1. Visión Oficial FinGo & Propuesta de Valor",
+          content: "<strong>Visión:</strong> <em>\"Ser la app de referencia en Colombia para que cualquier persona entienda su situación financiera real (lo que tiene, lo que debe y cómo salir de deudas) y tome decisiones informadas sin necesidad de ser experto en finanzas.\"</em> FinGo integra en una sola vista: <strong>Activos</strong> centralizados, <strong>Pasivos</strong> con TEA real y un <strong>Plan de Amortización</strong> algorítmico guiado (Avalancha y Bola de Nieve)."
         },
         {
-          title: "2. Propuesta de Valor Unificada",
-          content: "Centralización de deudas en una sola pantalla, alertas preventivas multicanal para erradicar cobros por mora, recomendaciones algorítmicas de pago (Bola de Nieve y Avalancha) y micro-educación financiera contextualizada según el perfil del usuario."
-        },
-        {
-          title: "3. Análisis del Entorno: 5 Fuerzas de Porter",
+          title: "2. Público Objetivo (5 Segmentos en Colombia)",
           bullets: [
-            "<strong>Poder de Proveedores (Medio-Alto):</strong> Dependencia de infraestructura Cloud (AWS/Azure), APIs de Open Finance y LLMs de IA.",
-            "<strong>Poder de Clientes (Alto):</strong> Bajos costos de cambio inicial; requiere demostrar valor en < 3 minutos.",
-            "<strong>Amenaza de Nuevos Entrantes (Alto):</strong> Bajas barreras de entrada tecnológica mitigadas por la confianza y seguridad regulatoria.",
-            "<strong>Amenaza de Sustitutos (Medio-Alto):</strong> Hojas de Excel, cuadernos o apps bancarias aisladas que no consolidan la visión de conjunto.",
-            "<strong>Rivalidad entre Competidores (78% General / Baja en Nicho):</strong> Nequi, Daviplata o RappiPay dominan pagos y transaccionalidad, pero ninguna resuelve la extinción secuencial de deudas."
+            "<strong>Jóvenes Profesionales (22-32 años):</strong> Primeras tarjetas de crédito y créditos de libre inversión; buscan orden financiero sin tecnicismos.",
+            "<strong>Estudiantes Universitarios y Egresados:</strong> Créditos educativos (ej. Icetex) y primeras responsabilidades crediticias con ingresos de entrada.",
+            "<strong>Adultos Bancarizados (25-45 años):</strong> Múltiples deudas simultáneas (tarjetas, libre inversión, libranzas) que requieren desahogo de liquidez.",
+            "<strong>Usuarios de Crédito Digital / Fintechs:</strong> Clientes de micropréstamos rápidos con altas tasas y riesgo de sobreendeudamiento.",
+            "<strong>Trabajadores Independientes / Microempresarios:</strong> Ingresos variables y descalces de flujo de caja que necesitan armonizar pasivos comerciales y personales."
+          ]
+        },
+        {
+          title: "3. Diagnóstico Estratégico: 5 Fuerzas de Porter",
+          bullets: [
+            "<strong>Poder de Proveedores (Medio-Alto):</strong> Dependencia de infraestructura Cloud (AWS/Azure), APIs de agregación Open Finance (Decreto 0368 de 2026), modelos de IA (OpenAI/Gemini) y canales OTP. <em>Mitigación:</em> Arquitectura desacoplada multi-cloud y estándares abiertos de Open Finance.",
+            "<strong>Poder de Negociación de Clientes (85% · Muy Alto):</strong> Bajos costos de cambio ($0) y alternativas gratuitas. <em>Mitigación:</em> Diagnóstico express en < 3 min a costo $0, planes hiperpersonalizados y valor acumulado del historial.",
+            "<strong>Rivalidad entre Competidores Existentes (78% Amplio / 25% Nicho FinGo):</strong> Mercado masivo saturado en transferencias y registro de gastos (Nequi, Daviplata, RappiPay, Treinta). <em>Océano Azul:</em> FinGo es la única app que consolida activos + pasivos + plan secuencial de amortización.",
+            "<strong>Amenaza de Nuevos Entrantes (70% · Alto):</strong> Mercado fintech en crecimiento ($11.18 B COP) atrae competidores. <em>Mitigación:</em> Barrera regulatoria estricta (Decreto 0368/2026, Ley 1581 Hábeas Data) y algoritmos matemáticos propietarios.",
+            "<strong>Amenaza de Productos Sustitutos (65% · Medio-Alto):</strong> Hojas de Excel, cuadernos de notas y compras de cartera bancaria. <em>Mitigación:</em> Automatización Open Finance, alertas preventivas multicanal y simulación dinámica del ahorro en intereses."
           ]
         },
         {
           title: "4. Ecosistema de Gestión Ágil en Notion",
-          content: "Estructuración del Product Backlog, tableros Kanban con límites de trabajo en proceso (WIP Limits), trazabilidad de épicas y sincronización de responsabilidades del equipo."
+          content: "Para la planificación y gobernanza del proyecto, el equipo seleccionó Notion por su flexibilidad para unificar el Product Backlog (30 HUs / 137 pts), tablero Kanban con límite de WIP (WIP = 2), gestión de impedimentos y fichas de aprendizaje.<br><br>👉 Acceso al espacio oficial: <a href=\"https://app.notion.com/p/Finanzas-personales-MVP-en-Notion-099e1f25df984dfc8b1a1b45adf8bbca?source=copy_link\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color: #48C09B; font-weight: bold; text-decoration: underline;\">💰 Finanzas personales (MVP en Notion) ↗</a>"
         }
       ]
     },

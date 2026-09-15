@@ -200,41 +200,223 @@ class PitchViewer {
     return `
       <div class="slide-content animate-fade-in">
         <div class="slide-header">
-          <span class="slide-tag">ENTREGABLE 1 · DIAGNÓSTICO & 5 FUERZAS DE PORTER</span>
-          <h2>El Dolor del Endeudamiento y la Propuesta de Valor FinGo</h2>
+          <span class="slide-tag">ENTREGABLE 1 · INFORME EJECUTIVO & DIAGNÓSTICO ESTRATÉGICO</span>
+          <h2>Visión Institucional, Gestión Ágil en Notion y 5 Fuerzas de Porter</h2>
         </div>
 
-        <div class="slide-split-grid">
+        <!-- 1. Visión Oficial FinGo -->
+        <div class="vision-banner-card">
+          <div class="vision-header-row">
+            <span class="vision-badge">🎯 Visión Oficial FinGo</span>
+            <small style="color: var(--text-dim); font-size: 11px;">Entregable 1 · Especialización en Fintech</small>
+          </div>
+          <p class="vision-quote">
+            "Ser la app de referencia en Colombia para que cualquier persona entienda su situación financiera real (lo que tiene, lo que debe y cómo salir de deudas) y tome decisiones informadas sin necesidad de ser experto en finanzas."
+          </p>
+          <div class="vision-pillars">
+            <div class="vision-pillar-chip"><span>💎</span> <strong>Lo que tiene:</strong> Activos centralizados</div>
+            <div class="vision-pillar-chip"><span>💳</span> <strong>Lo que debe:</strong> Pasivos, TEA y cortes</div>
+            <div class="vision-pillar-chip"><span>🚀</span> <strong>Cómo salir:</strong> Plan de pagos estructurado</div>
+          </div>
+        </div>
+
+        <!-- 2. Problemática vs Solución -->
+        <div class="slide-split-grid" style="margin-top: 18px;">
           <div class="slide-card problem-card">
             <h3 class="card-title text-red">⚠️ El Problema en Colombia</h3>
             <ul class="slide-list">
-              <li><strong>Deudas Dispersas:</strong> Múltiples tarjetas, créditos de consumo y créditos educativos Icetex sin panel central.</li>
-              <li><strong>Opacidad de Costos:</strong> Desconocimiento total de la Tasa Efectiva Anual (TEA) y cobros de comisiones ocultas.</li>
-              <li><strong>Estrés & Moras:</strong> Olvidos involuntarios de fechas de corte que detonan intereses moratorios y reporte negativo.</li>
+              <li><strong>Deudas Dispersas:</strong> Múltiples tarjetas de crédito, créditos educativos (ej. Icetex), libre inversión y fintechs sin visión global.</li>
+              <li><strong>Opacidad de Costos:</strong> Desconocimiento total de la Tasa Efectiva Anual (TEA) y comisiones ocultas cobradas por entidades.</li>
+              <li><strong>Estrés Financiero & Moras:</strong> Olvidos involuntarios de fechas de corte que detonan intereses moratorios y reporte negativo en centrales de riesgo.</li>
             </ul>
           </div>
 
           <div class="slide-card solution-card">
             <h3 class="card-title text-mint">💡 La Solución FinGo</h3>
             <ul class="slide-list">
-              <li><strong>Consolidación Inteligente:</strong> Vista unificada de activos y pasivos mediante Open Finance (Decreto 0368 de 2026).</li>
-              <li><strong>Algoritmos de Salida:</strong> Métodos de <em>Avalancha</em> (mayor tasa) y <em>Bola de Nieve</em> (menor saldo).</li>
-              <li><strong>Diagnóstico Express:</strong> Evaluación de deuda a costo $0 en menos de 3 minutos sin fricción.</li>
+              <li><strong>Consolidación Inteligente:</strong> Unificación de activos y pasivos mediante Open Finance (Decreto 0368 de 2026).</li>
+              <li><strong>Algoritmos de Salida:</strong> Métodos matemáticos de <em>Avalancha</em> (prioriza tasa alta) y <em>Bola de Nieve</em> (prioriza saldo menor).</li>
+              <li><strong>Diagnóstico Express:</strong> Evaluación integral de endeudamiento a costo $0 en menos de 3 minutos sin fricción.</li>
             </ul>
           </div>
         </div>
 
-        <div class="slide-card" style="margin-top: 18px;">
-          <div class="porter-header">
-            <strong>📊 5 Fuerzas de Porter:</strong>
-            <span class="badge-blue">Oportunidad Única: Nicho Desatendido</span>
+        <!-- 3. Plataforma de Gestión del Proyecto: Notion Workspace -->
+        <div class="notion-workspace-card">
+          <div class="notion-card-header">
+            <div class="notion-title-wrap">
+              <div class="notion-logo-icon">📝</div>
+              <div>
+                <h3>Plataforma de Gestión Ágil: Notion Workspace</h3>
+                <p>Espacio colaborativo unificado para backlog, ceremonias ágiles, tablero Kanban y trazabilidad DoD.</p>
+              </div>
+            </div>
+            <a href="https://app.notion.com/p/Finanzas-personales-MVP-en-Notion-099e1f25df984dfc8b1a1b45adf8bbca?source=copy_link" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="btn-notion-link"
+               title="Abrir espacio oficial del proyecto en Notion">
+              <span>💰 Finanzas personales (MVP en Notion)</span>
+              <span class="notion-link-arrow">↗</span>
+            </a>
           </div>
-          <p style="font-size: 13px; color: #CBD5E1; margin-top: 6px;">
-            Mientras Nequi, Daviplata o RappiPay dominan las transferencias y el registro de gastos, <strong>ninguna entidad resuelve de forma integral el desendeudamiento planificado</strong> (activos + pasivos + plan de amortización).
-          </p>
+
+          <div class="notion-features-grid">
+            <div class="notion-feat-item">
+              <strong>📋 Backlog 30 Historias</strong>
+              <p>Mapeo de 137 puntos de historia organizados por valor de negocio y prioridad MoSCoW.</p>
+            </div>
+            <div class="notion-feat-item">
+              <strong>📊 Tablero Kanban (WIP=2)</strong>
+              <p>Límite estricto de trabajo en progreso para evitar cuellos de botella y maximizar el flujo.</p>
+            </div>
+            <div class="notion-feat-item">
+              <strong>🛑 Gestión de Bloqueos</strong>
+              <p>Seguimiento visual de impedimentos regulatorios y dependencias técnicas en tiempo real.</p>
+            </div>
+            <div class="notion-feat-item">
+              <strong>💡 Fichas de Aprendizaje</strong>
+              <p>Documentación de retrospectivas de sprint y validación sistemática de hipótesis Lean.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="slide-cta-play">
+        <!-- 4. Público Objetivo: 5 Segmentos en Colombia -->
+        <div class="target-audience-section">
+          <div class="target-audience-title-row">
+            <h3 style="font-size: 16px; color: #FFFFFF; font-weight: 800;">👥 Público Objetivo (5 Segmentos Clave en Colombia)</h3>
+            <span class="badge-blue">Target Validado</span>
+          </div>
+          <div class="target-audience-grid">
+            <div class="target-user-card">
+              <span class="target-icon">👔</span>
+              <span class="target-badge">22 - 32 años</span>
+              <strong>Jóvenes Profesionales</strong>
+              <p>Tarjetas de crédito activas y créditos de libre inversión. Buscan claridad de pagos sin tecnicismos.</p>
+            </div>
+            <div class="target-user-card">
+              <span class="target-icon">🎓</span>
+              <span class="target-badge">Educativo</span>
+              <strong>Estudiantes y Egresados</strong>
+              <p>Deudores de Icetex y créditos formativos. Necesitan programar cuotas con salarios de entrada.</p>
+            </div>
+            <div class="target-user-card">
+              <span class="target-icon">👨‍👩‍👧</span>
+              <span class="target-badge">25 - 45 años</span>
+              <strong>Adultos Bancarizados</strong>
+              <p>Múltiples deudas simultáneas (tarjetas, libre inversión, libranzas). Urgencia de liquidez y orden.</p>
+            </div>
+            <div class="target-user-card">
+              <span class="target-icon">📱</span>
+              <span class="target-badge">Crédito App</span>
+              <strong>Usuarios Fintech</strong>
+              <p>Clientes de micropréstamos digitales con altas tasas de interés que buscan evitar ciclos de mora.</p>
+            </div>
+            <div class="target-user-card">
+              <span class="target-icon">💼</span>
+              <span class="target-badge">Flujo Variable</span>
+              <strong>Independientes & Pymes</strong>
+              <p>Microempresarios con ingresos variables que requieren armonizar pasivos personales y de negocio.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Diagnóstico Detallado de las 5 Fuerzas de Porter -->
+        <div class="porter-5-section">
+          <div class="porter-intro-box">
+            <strong>📊 Diagnóstico de las 5 Fuerzas de Porter:</strong> Mientras el mercado masivo muestra una rivalidad feroz del <strong>78%</strong> en transferencias y registro pasivo de gastos (Nequi, Daviplata, RappiPay), FinGo opera en un <strong>nicho desatendido de baja rivalidad (25%)</strong> al ser la única plataforma que integra activos, pasivos y un plan de amortización guiado.
+          </div>
+
+          <div class="porter-5-grid">
+            <!-- Fuerza 1: Proveedores -->
+            <div class="porter-force-card">
+              <div class="p-force-top">
+                <span class="p-force-num">Fuerza 1</span>
+                <span class="p-force-title">Poder de Proveedores</span>
+                <span class="p-force-badge badge-amber">Medio - Alto</span>
+              </div>
+              <div class="p-force-block pressure">
+                <strong>Factores de Presión:</strong>
+                <p>Dependencia de Cloud (AWS/Azure), agregadores Open Finance (Decreto 0368/2026), APIs de IA (OpenAI/Gemini) y canales OTP.</p>
+              </div>
+              <div class="p-force-block mitigation">
+                <strong>Mitigación FinGo:</strong>
+                <p>Arquitectura multi-cloud desacoplada y estándares abiertos de Open Finance en Colombia para evitar <em>vendor lock-in</em>.</p>
+              </div>
+            </div>
+
+            <!-- Fuerza 2: Clientes -->
+            <div class="porter-force-card">
+              <div class="p-force-top">
+                <span class="p-force-num">Fuerza 2</span>
+                <span class="p-force-title">Poder de Clientes</span>
+                <span class="p-force-badge badge-red">85% · Muy Alto</span>
+              </div>
+              <div class="p-force-block pressure">
+                <strong>Factores de Presión:</strong>
+                <p>Costos de cambio nulos ($0), abundancia de apps gratuitas y exigencia de valor tangible inmediato.</p>
+              </div>
+              <div class="p-force-block mitigation">
+                <strong>Mitigación FinGo:</strong>
+                <p>Diagnóstico express en &lt; 3 min a costo $0, planes personalizados (Avalancha vs Nieve) y valor acumulado en historial.</p>
+              </div>
+            </div>
+
+            <!-- Fuerza 3: Rivalidad -->
+            <div class="porter-force-card highlight">
+              <div class="p-force-top">
+                <span class="p-force-num">Fuerza 3</span>
+                <span class="p-force-title">Rivalidad Competidores</span>
+                <span class="p-force-badge badge-mint">78% Amplio / 25% FinGo</span>
+              </div>
+              <div class="p-force-block pressure">
+                <strong>Factores de Presión:</strong>
+                <p>Saturación en pagos y registro pasivo de gastos (Nequi, Daviplata, RappiPay, Treinta, Monefy).</p>
+              </div>
+              <div class="p-force-block mitigation">
+                <strong>Océano Azul FinGo:</strong>
+                <p>Nicho desatendido: FinGo es la única app que une activos + pasivos + plan secuencial de amortización.</p>
+              </div>
+            </div>
+
+            <!-- Fuerza 4: Nuevos Entrantes -->
+            <div class="porter-force-card">
+              <div class="p-force-top">
+                <span class="p-force-num">Fuerza 4</span>
+                <span class="p-force-title">Nuevos Entrantes</span>
+                <span class="p-force-badge badge-red">70% · Alto</span>
+              </div>
+              <div class="p-force-block pressure">
+                <strong>Factores de Presión:</strong>
+                <p>Crecimiento fintech en Colombia ($11.18 B COP en volumen proyectado) atrae actores e imitaciones.</p>
+              </div>
+              <div class="p-force-block mitigation">
+                <strong>Mitigación FinGo:</strong>
+                <p>Barrera regulatoria estricta (Decreto 0368/2026, Ley 1581 Hábeas Data) y algoritmos matemáticos propios.</p>
+              </div>
+            </div>
+
+            <!-- Fuerza 5: Sustitutos -->
+            <div class="porter-force-card">
+              <div class="p-force-top">
+                <span class="p-force-num">Fuerza 5</span>
+                <span class="p-force-title">Amenaza Sustitutos</span>
+                <span class="p-force-badge badge-amber">65% · Medio-Alto</span>
+              </div>
+              <div class="p-force-block pressure">
+                <strong>Factores de Presión:</strong>
+                <p>Hojas de Excel/Google Sheets, cuadernos manuales, compras de cartera bancaria y apps bancarias aisladas.</p>
+              </div>
+              <div class="p-force-block mitigation">
+                <strong>Mitigación FinGo:</strong>
+                <p>Automatización Open Finance, alertas predictivas multicanal y simulación dinámica del ahorro en intereses.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón CTA de Nivel 1 -->
+        <div class="slide-cta-play" style="margin-top: 28px;">
           <button class="btn-primary-fingo" onclick="window.pitchViewer.playCurrentSlideLevel()">
             <span>🎮 Iniciar Carrera Financiera (Nivel 1: Selva de Deudas)</span>
             <span class="btn-arrow">→</span>
