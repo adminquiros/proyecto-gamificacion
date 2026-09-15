@@ -23,17 +23,18 @@ class TrackRenderer {
 
   initCity() {
     this.buildings = [];
-    const colors = ["#0e1e38", "#122544", "#0a1526", "#152c52", "#0c1a2f"];
-    const count = 28;
+    const colors = ["#091528", "#0e1e38", "#081324", "#122544"];
+    // Menos edificios, ubicados más hacia los laterales para despejar completamente el horizonte
+    const count = 14;
     for (let i = 0; i < count; i++) {
       const side = i % 2 === 0 ? -1 : 1;
-      const xDist = (4.5 + Math.random() * 8.5) * side;
-      const zPos = 20 + Math.random() * 95;
-      const width = 2.5 + Math.random() * 3.5;
-      const height = 4.0 + Math.random() * 8.0;
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      const hasSign = Math.random() > 0.6;
-      const signText = hasSign ? ["FINGO", "OPEN FINANCE", "DECRETO 0368", "AVALANCHA", "WIP ≤ 2", "0% MORA"][Math.floor(Math.random() * 6)] : "";
+      const xDist = (7.5 + Math.random() * 8.5) * side; // Alejados del centro de la pista
+      const zPos = 25 + (i * 7);
+      const width = 3.2 + Math.random() * 3.0;
+      const height = 4.5 + Math.random() * 7.0;
+      const color = colors[i % colors.length];
+      const hasSign = i % 3 === 0;
+      const signText = hasSign ? ["FINGO", "OPEN FINANCE", "DECRETO 0368", "AVALANCHA"][Math.floor(Math.random() * 4)] : "";
 
       this.buildings.push({ x: xDist, z: zPos, width, height, color, hasSign, signText });
     }
@@ -49,22 +50,22 @@ class TrackRenderer {
     const h = this.canvas.height;
     const horizonY = h * this.camera.horizonY;
 
-    // 1. Cielo Gradiente FinTech Dark
-    const skyGrad = ctx.createLinearGradient(0, 0, 0, horizonY + 30);
-    skyGrad.addColorStop(0, "#030712");
-    skyGrad.addColorStop(0.65, "#0B1528");
-    skyGrad.addColorStop(0.95, "#152C52");
-    skyGrad.addColorStop(1, "#2B62C6");
+    // 1. Cielo Gradiente Nítido y Luminoso
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, horizonY + 20);
+    skyGrad.addColorStop(0, "#020617");
+    skyGrad.addColorStop(0.55, "#0B192E");
+    skyGrad.addColorStop(0.85, "#152E58");
+    skyGrad.addColorStop(1, "#1D4ED8");
     ctx.fillStyle = skyGrad;
-    ctx.fillRect(0, 0, w, horizonY + 40);
+    ctx.fillRect(0, 0, w, horizonY + 25);
 
-    // Resplandor del horizonte
-    const horizonGlow = ctx.createRadialGradient(w / 2, horizonY, 10, w / 2, horizonY, w * 0.55);
-    horizonGlow.addColorStop(0, "rgba(72, 192, 155, 0.45)");
-    horizonGlow.addColorStop(0.5, "rgba(43, 98, 198, 0.2)");
-    horizonGlow.addColorStop(1, "rgba(5, 9, 20, 0)");
+    // Resplandor nítido del horizonte (contraste limpio para ver obstáculos lejanos)
+    const horizonGlow = ctx.createRadialGradient(w / 2, horizonY, 20, w / 2, horizonY, w * 0.45);
+    horizonGlow.addColorStop(0, "rgba(72, 192, 155, 0.35)");
+    horizonGlow.addColorStop(0.4, "rgba(37, 99, 235, 0.18)");
+    horizonGlow.addColorStop(1, "rgba(2, 6, 23, 0)");
     ctx.fillStyle = horizonGlow;
-    ctx.fillRect(0, horizonY - 60, w, 120);
+    ctx.fillRect(0, horizonY - 50, w, 100);
 
     // 2. Dibujar Skyline de Rascacielos FinTech
     this.renderSkyline();
@@ -77,11 +78,8 @@ class TrackRenderer {
     ctx.fillStyle = groundGrad;
     ctx.fillRect(0, horizonY, w, h - horizonY);
 
-    // 4. Superficie de la Pista de 3 Carriles en Proyección 3D
+    // 4. Superficie de la Pista de 3 Carriles en Proyección 3D (Completamente despejada y nítida)
     this.renderTrackSurface();
-
-    // 5. Arcos de Datos y Letreros de Nivel cada cierto tramo
-    this.renderOverheadGantries(currentLevelInfo);
   }
 
   renderSkyline() {

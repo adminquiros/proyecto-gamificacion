@@ -94,6 +94,53 @@
       </div>
     </div>
 
+    <!-- Panel Lateral Izquierdo: Misión Académica y Amenazas a Esquivar -->
+    <aside id="side-panel-left" class="game-side-panel side-panel-left">
+      <div class="side-panel-card animate-fade-in">
+        <div class="side-panel-badge-row">
+          <span id="side-left-badge" class="side-badge">ENTREGABLE 1 · NIVEL 1</span>
+        </div>
+        <h3 id="side-left-title" class="side-title">Selva de Deudas Dispersas</h3>
+        <p id="side-left-desc" class="side-desc">Consolida pasivos en una sola pantalla para erradicar cobros por mora.</p>
+
+        <div class="side-threats-block">
+          <span class="side-block-label">⚠️ Amenazas a Esquivar:</span>
+          <div id="side-threats-list" class="side-threats-list">
+            <!-- Dinámico -->
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Panel Lateral Derecho: Métricas de Salud Financiera y Control -->
+    <aside id="side-panel-right" class="game-side-panel side-panel-right">
+      <div class="side-panel-card animate-fade-in">
+        <div class="side-panel-badge-row">
+          <span class="side-badge mint">SALUD FINANCIERA</span>
+        </div>
+        <h3 id="side-right-score" class="side-title text-mint">$120.000 COP Ahorrados</h3>
+        
+        <div class="side-metric-row">
+          <span class="metric-label">Optimización TEA:</span>
+          <strong class="metric-val text-mint">-38.5%</strong>
+        </div>
+        <div class="side-metric-row">
+          <span class="metric-label">Estrategia Activa:</span>
+          <strong class="metric-val text-blue">Método Avalancha</strong>
+        </div>
+        <div class="side-metric-row">
+          <span class="metric-label">Cumplimiento Legal:</span>
+          <strong class="metric-val text-mint">Decreto 0368 / 2026</strong>
+        </div>
+
+        <div class="side-action-cta">
+          <button class="btn-side-pitch" onclick="window.pitchViewer.show(window.gameEngine.currentLevel)">
+            📊 Ver Slide de este Nivel
+          </button>
+        </div>
+      </div>
+    </aside>
+
     <!-- Banner de Presentación al Iniciar Nivel -->
     <div id="level-intro-banner" class="hidden"></div>
 

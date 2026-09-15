@@ -73,6 +73,39 @@ class UIManager {
     }
   }
 
+  updateSidePanels(levelData, score = 0, coins = 0) {
+    if (!levelData) return;
+
+    const leftBadge = document.getElementById("side-left-badge");
+    const leftTitle = document.getElementById("side-left-title");
+    const leftDesc = document.getElementById("side-left-desc");
+    const threatsList = document.getElementById("side-threats-list");
+
+    if (leftBadge) leftBadge.textContent = `${levelData.badge} · NIVEL ${levelData.levelNumber}`;
+    if (leftTitle) leftTitle.textContent = levelData.title;
+    if (leftDesc) leftDesc.textContent = levelData.summary;
+
+    if (threatsList && typeof OBSTACLES_DATA !== "undefined") {
+      const levelKey = `level${levelData.levelNumber}`;
+      const threats = OBSTACLES_DATA[levelKey] || [];
+      threatsList.innerHTML = threats.map(t => `
+        <div class="side-threat-item" style="border-left: 3px solid ${t.color}">
+          <span class="threat-icon">${t.icon}</span>
+          <div class="threat-info">
+            <strong>${t.name}</strong>
+            <small>Evasión: ${t.dodgeType === 'slide' ? 'Deslizarse (▼)' : (t.dodgeType === 'jump' ? 'Saltar (▲)' : 'Cambio de Carril (◀▶)')}</small>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    const rightSavings = document.getElementById("side-right-score");
+    if (rightSavings) {
+      const savingsEstimated = Math.max(120000, score * 1650).toLocaleString("es-CO");
+      rightSavings.textContent = `$${savingsEstimated} COP Ahorrados`;
+    }
+  }
+
   showLevelIntroBanner(levelData) {
     if (!this.levelBanner || !levelData) return;
 

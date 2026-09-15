@@ -21,84 +21,87 @@ class CollectibleManager {
     this.activeItems = [];
   }
 
-  update(dt, speed) {
+  update(dt, speed, activeObstacles = []) {
     // 1. Mover ítems hacia el jugador
     for (let i = this.activeItems.length - 1; i >= 0; i--) {
       const item = this.activeItems[i];
       item.z -= speed * dt;
-      item.rotation += dt * 4; // Rotación sobre su eje
+      item.rotation += dt * 3.5; // Rotación sobre su eje
 
       if (item.z < -3) {
         this.activeItems.splice(i, 1);
       }
     }
 
-    // 2. Generación procedural de coleccionables
+    // 2. Generación procedural limpia de coleccionables
     let furthestZ = 0;
     for (const item of this.activeItems) {
       if (item.z > furthestZ) furthestZ = item.z;
     }
 
     if (furthestZ < this.spawnDistance - this.minSpacing) {
-      this.spawnPattern();
+      this.spawnPattern(activeObstacles);
     }
   }
 
-  spawnPattern() {
-    const lanes = [-1, 0, 1];
-    const lane = lanes[Math.floor(Math.random() * lanes.length)];
-    const xPos = lane * this.laneWidth;
+  spawnPattern(activeObstacles = []) {
+    const allLanes = [-1, 0, 1];
     const baseZ = this.spawnDistance;
+
+    // Detectar carriles ocupados por obstáculos cercanos al punto de spawn (Z entre 80 y 115)
+    const blockedLanes = new Set();
+    for (const obs of activeObstacles) {
+      if (Math.abs(obs.z - baseZ) < 18) {
+        blockedLanes.add(obs.lane);
+      }
+    }
+
+    // Filtrar carriles seguros y despejados
+    let safeLanes = allLanes.filter(l => !blockedLanes.has(l));
+    if (safeLanes.length === 0) {
+      // Si todos los carriles tienen obstáculos cercanos, no spawnear coleccionables para evitar sobrecarga
+      return;
+    }
+
+    const lane = safeLanes[Math.floor(Math.random() * safeLanes.length)];
+    const xPos = lane * this.laneWidth;
 
     const roll = Math.random();
 
-    if (roll < 0.65) {
-      // Hilera de 4 monedas consecutivas
-      for (let i = 0; i < 4; i++) {
+    if (roll < 0.7) {
+      // Hilera limpia de 2 a 3 monedas (sin saturar la pantalla)
+      const coinCount = Math.random() > 0.5 ? 3 : 2;
+      for (let i = 0; i < coinCount; i++) {
         this.activeItems.push({
           ...COLLECTIBLES_DATA.coin,
           lane,
           x: xPos,
-          y: 0.6,
-          z: baseZ + (i * 3.2),
+          y: 0.65,
+          z: baseZ + (i * 3.6),
           rotation: Math.random() * Math.PI,
           collected: false
         });
       }
-    } else if (roll < 0.8) {
-      // Arco de monedas que invita a saltar
-      for (let i = 0; i < 5; i++) {
-        const arcY = 0.6 + Math.sin((i / 4) * Math.PI) * 1.5;
-        this.activeItems.push({
-          ...COLLECTIBLES_DATA.coin,
-          lane,
-          x: xPos,
-          y: arcY,
-          z: baseZ + (i * 2.8),
-          rotation: Math.random() * Math.PI,
-          collected: false
-        });
-      }
-    } else if (roll < 0.9) {
-      // Powerup de Escudo o Multiplicador
+    } else if (roll < 0.85) {
+      // Powerup individual de Escudo o Multiplicador
       const powerupKey = Math.random() > 0.5 ? "shield" : "multiplier";
       this.activeItems.push({
         ...COLLECTIBLES_DATA[powerupKey],
         lane,
         x: xPos,
-        y: 0.9,
+        y: 0.85,
         z: baseZ,
         rotation: 0,
         collected: false
       });
     } else {
-      // Gema de Salud Financiera o Corazón
-      const specialKey = Math.random() > 0.5 ? "gem" : "heart";
+      // Gema o Corazón
+      const specialKey = Math.random() > 0.6 ? "gem" : "heart";
       this.activeItems.push({
         ...COLLECTIBLES_DATA[specialKey],
         lane,
         x: xPos,
-        y: 0.9,
+        y: 0.85,
         z: baseZ,
         rotation: 0,
         collected: false

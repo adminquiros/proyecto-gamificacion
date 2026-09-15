@@ -2,6 +2,13 @@
    FINGO RUNNER - DISEÑO RESPONSIVE Y ADAPTABILIDAD MÓVIL / TABLET / DESKTOP
    ========================================================================== */
 
+/* Pantallas medianas y Laptops compactas (<= 1100px) */
+@media (max-width: 1100px) {
+  .game-side-panel {
+    display: none !important;
+  }
+}
+
 /* Pantallas medianas y Tablets (<= 992px) */
 @media (max-width: 992px) {
   .academic-modal-card {

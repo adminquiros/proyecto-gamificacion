@@ -22,16 +22,16 @@ class GameEngine {
     // Estados: 'MENU', 'PLAYING', 'PAUSED', 'MILESTONE', 'GAME_OVER', 'VICTORY'
     this.state = "MENU";
 
-    // Progresión más accesible y rápida
+    // Progresión - Dificultad Media Equilibrada (~25 segundos por nivel)
     this.currentLevel = 1;
     this.maxLevels = 6;
-    this.levelTargetDistance = 160; // 160 metros para completar cada nivel con facilidad
+    this.levelTargetDistance = 260; // 260 metros: ritmo óptimo para disfrutar mecánicas y ver obstáculos
     this.distanceInLevel = 0;
     this.totalDistance = 0;
 
     this.score = 0;
     this.coins = 0;
-    this.baseSpeed = 15;           // Velocidad relajada para apreciar claramente los iconos
+    this.baseSpeed = 18;           // Velocidad media ágil y balanceada
     this.speed = this.baseSpeed;
 
     this.lastTime = 0;
@@ -53,7 +53,7 @@ class GameEngine {
   startLevel(levelNum = 1) {
     this.currentLevel = levelNum;
     this.distanceInLevel = 0;
-    this.speed = this.baseSpeed + (this.currentLevel - 1) * 1.0;
+    this.speed = this.baseSpeed + (this.currentLevel - 1) * 1.2;
 
     this.obstacles.reset();
     this.collectibles.reset();
@@ -75,6 +75,7 @@ class GameEngine {
 
     const levelData = ACADEMIC_DATA.deliverables.find(d => d.levelNumber === this.currentLevel);
     this.ui.showLevelIntroBanner(levelData);
+    this.ui.updateSidePanels(levelData, this.score, this.coins);
   }
 
   restartCurrentLevel() {
@@ -135,9 +136,9 @@ class GameEngine {
     this.track.update(this.speed, dt);
     this.particles.update(dt);
 
-    // 4. Actualizar obstáculos y coleccionables
+    // 4. Actualizar obstáculos y coleccionables limpios (sin superposición)
     this.obstacles.update(dt, this.speed, this.currentLevel, this.distanceInLevel);
-    this.collectibles.update(dt, this.speed);
+    this.collectibles.update(dt, this.speed, this.obstacles.activeObstacles);
 
     // 5. Verificar colisiones con obstáculos
     const hitInfo = this.obstacles.checkCollisions(this.player);
@@ -163,6 +164,7 @@ class GameEngine {
         this.sound.playCoin();
         this.coins++;
         this.score += item.points * this.player.multiplier;
+        this.ui.updateSidePanels(ACADEMIC_DATA.deliverables.find(d => d.levelNumber === this.currentLevel), this.score, this.coins);
       } else if (item.type === "shield") {
         this.sound.playPowerup();
         this.player.activateShield(item.duration);
@@ -207,8 +209,14 @@ class GameEngine {
     this.sound.playLevelComplete();
     this.sound.stopMusic();
 
-    const deliverable = ACADEMIC_DATA.deliverables.find(d => d.levelNumber === this.currentLevel);
-    this.ui.showAcademicMilestoneModal(deliverable, this.currentLevel < this.maxLevels);
+    // Cada hito completado abre directamente la presentación ejecutiva en la siguiente diapositiva
+    if (window.pitchViewer) {
+      const nextSlide = Math.min(7, this.currentLevel + 1);
+      window.pitchViewer.show(nextSlide, true);
+    } else {
+      const deliverable = ACADEMIC_DATA.deliverables.find(d => d.levelNumber === this.currentLevel);
+      this.ui.showAcademicMilestoneModal(deliverable, this.currentLevel < this.maxLevels);
+    }
   }
 
   gameOver() {
