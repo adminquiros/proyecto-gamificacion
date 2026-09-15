@@ -44,7 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
     btnStartPlay.addEventListener("click", () => {
       soundSynth.init();
       uiManager.hideMainMenu();
-      gameEngine.startLevel(1);
+      pitchViewer.show(0);
     });
   }
 

@@ -23,12 +23,15 @@ class PitchViewer {
     document.body.style.overflow = "hidden";
   }
 
-  hide() {
+  hide(returnToMenu = false) {
     if (this.container) {
       this.container.classList.add("hidden");
       this.container.innerHTML = "";
       document.body.style.overflow = "";
       this.fromLevelVictory = false;
+      if (returnToMenu && window.uiManager && (!window.gameEngine || window.gameEngine.state !== "PLAYING")) {
+        window.uiManager.showMainMenu();
+      }
     }
   }
 
@@ -98,7 +101,7 @@ class PitchViewer {
             </div>
 
             <div class="pitch-nav-actions">
-              <button class="btn-pitch-close" onclick="window.pitchViewer.hide()">
+              <button class="btn-pitch-close" onclick="window.pitchViewer.hide(true)">
                 ✕ Cerrar Presentación
               </button>
             </div>
@@ -133,16 +136,12 @@ class PitchViewer {
 
               ${this.currentSlide >= 1 && this.currentSlide <= 6 ? `
                 <button class="btn-slide-play" onclick="window.pitchViewer.playCurrentSlideLevel()">
-                  🎮 Jugar Nivel ${this.currentSlide} →
+                  🎮 ${this.currentSlide === 1 ? "Iniciar Carrera (Nivel 1)" : `Jugar Nivel ${this.currentSlide}`} →
                 </button>
-              ` : (this.currentSlide === 0 ? `
-                <button class="btn-slide-play" onclick="window.pitchViewer.playCurrentSlideLevel()">
-                  🎮 Iniciar Nivel 1 →
-                </button>
-              ` : "")}
+              ` : ""}
 
               <button class="btn-slide-nav primary" onclick="window.pitchViewer.nextSlide()" ${this.currentSlide === this.totalSlides - 1 ? "disabled" : ""}>
-                Siguiente Slide →
+                ${this.currentSlide === 0 ? "Siguiente Slide (Porter) →" : "Siguiente Slide →"}
               </button>
             </div>
           </div>
@@ -189,7 +188,7 @@ class PitchViewer {
 
         <div class="slide-cta-play" style="margin-top: 28px;">
           <button class="btn-primary-fingo" onclick="window.pitchViewer.goToSlide(1)">
-            <span>Explorar Entregables & Carrera (Nivel 1)</span>
+            <span>Siguiente: Entregable 1 (Diagnóstico & 5 Fuerzas de Porter)</span>
             <span class="btn-arrow">→</span>
           </button>
         </div>
@@ -237,7 +236,7 @@ class PitchViewer {
 
         <div class="slide-cta-play">
           <button class="btn-primary-fingo" onclick="window.pitchViewer.playCurrentSlideLevel()">
-            <span>🎮 Jugar Nivel 1: Selva de Deudas Dispersas</span>
+            <span>🎮 Iniciar Carrera Financiera (Nivel 1: Selva de Deudas)</span>
             <span class="btn-arrow">→</span>
           </button>
         </div>
